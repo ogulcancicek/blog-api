@@ -19,7 +19,7 @@ exports.signup = [
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            res.json({
+            return res.json({
                 username: req.body.username,
                 errors: errors.array(),
             });
@@ -39,7 +39,7 @@ exports.signup = [
                 }).save( err => {
                     if (err) return next(err);
 
-                    res.json({
+                    return res.json({
                         message: "Signed-up sucessfuly",
                         user: user,
                     });
@@ -74,7 +74,7 @@ exports.login = [
                 expiresIn: '1d',
             })
 
-            return res.json({ user, token });
+            return res.json({ token });
         })(req, res, next);
     }
 ];
