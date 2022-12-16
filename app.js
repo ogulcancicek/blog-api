@@ -8,6 +8,7 @@ require('dotenv').config();
 
 var indexRouter = require('./routes/index');
 
+require('./passport');
 var app = express();
 
 // Set up mongodb connection
@@ -15,6 +16,7 @@ const mongoose = require('mongoose');
 const mongoDB = process.env.MONGODB_URI;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('strictQuery', false);
 const db = mongoose.connection;
 db.on('error', console.log.bind(console, 'MongoDB connection error:'));
 
