@@ -15,7 +15,7 @@ This project requires the following packages:
 
 ## User Authentication
 
-This API implements user authentication using the `passport` package and JSON Web Tokens (JWT). Users can sign up and log in to the API using the `/api/auth/sign-up` and `/api/login` endpoints, respectively. Once a user is logged in, they can access protected routes by including a valid JWT in the `Authorization` header of their requests.
+This API implements user authentication using the `passport` package and JSON Web Tokens (JWT). Users can sign up and log in to the API using the `/api/sign-up` and `/api/login` endpoints, respectively. Once a user is logged in, they can access protected routes by including a valid JWT in the `Authorization` header of their requests.
 
 ## Requirements
 
