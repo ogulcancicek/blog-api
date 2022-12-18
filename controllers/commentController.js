@@ -18,11 +18,11 @@ exports.get_comments = async (req, res, next) => {
 
 exports.get_single_comment = async (req, res, next) => {
     try {
-        const comment = await Comment.findById(eq.params.id);
+        const comment = await Comment.findById(req.params.commentId);
 
         if (!comment) {
             return res.status(404)
-                      .json({ err: `Comment with id ${req.params.id} not found.` });
+                      .json({ err: `Comment with id ${req.params.commentId} not found.` });
         }
 
         res.status(200).json({ comment });
@@ -45,8 +45,9 @@ exports.create_comment = [
         }
 
         const comment = new Comment({
+            postId: req.params.postId,
             text: req.body.text,
-            user: req.body.uesr
+            user: req.body.user
         });
 
         comment.save( err => {
@@ -62,16 +63,19 @@ exports.create_comment = [
 
 exports.update_comment = async (req, res, next) => {
     try {
-        const comment = await Comment.findByIdAndUpdate(req.params.id);
+        const comment = await Comment.findByIdAndUpdate(req.params.commentId, {
+            text: req.body.text,
+            user: req.body.user
+        });
 
         if (!comment) {
             return res.status(404)
-                      .json({ err: `comment with id ${req.params.id} not found.` });
+                      .json({ err: `comment with id ${req.params.commentId} not found.` });
         }
 
         res.status(200).json({ 
-            post,
-            msg: `comment with id ${req.params.id} updated successfuly.` 
+            comment,
+            msg: `comment with id ${req.params.commentId} updated successfuly.` 
         });
     } catch (err) {
         next(err);        
@@ -95,16 +99,16 @@ exports.delete_post_comments = async (req, res, next) => {
 
 exports.delete_single_comment = async (req, res, next) => {
     try {
-        const comment = await Comment.findByIdAndRemove(req.params.id);
+        const comment = await Comment.findByIdAndRemove(req.params.commentId);
 
         if (!comment) {
             return res.status(404)
-                      .json({ err: `comment with id ${req.params.id} not found.` });
+                      .json({ err: `comment with id ${req.params.commentId} not found.` });
         }
 
         res.status(200).json({ 
-            post,
-            msg: `comment with id ${req.params.id} deleted successfuly.` 
+            comment,
+            msg: `comment with id ${req.params.commentId} deleted successfuly.` 
         });
     } catch (err) {
         next(err);        

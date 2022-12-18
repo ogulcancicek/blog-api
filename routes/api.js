@@ -45,9 +45,7 @@ router.delete('/posts/:postId/comments/:commentId',
             passport.authenticate('jwt', { session: false }),
             commentController.delete_single_comment);
 // Get Single Comment
-router.get('/posts/:postId/comments/:commentId', 
-            passport.authenticate('jwt', { session: false }),
-            commentController.get_single_comment);
+router.get('/posts/:postId/comments/:commentId', commentController.get_single_comment);
 
 router.post('/sign-up', userController.signup);
 
